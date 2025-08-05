@@ -60,93 +60,93 @@ export default function LoginPage() {
         </div>
       </aside>
 
-      {/* Main area */}
-      <main className="flex-1 flex flex-col justify-center items-center px-4 py-8">
+        {/* Main area */}
+        <main className="flex-1 flex flex-col justify-center items-center px-4 py-8">
         <div className="max-w-2xl w-full">
-          <h2 className="text-3xl font-bold text-center mb-2">LOGIN</h2>
-          <p className="text-lg text-center mb-7">
+            <h2 className="font-bold text-center mb-2">LOGIN</h2>
+            <p className="text-center mb-7">
             Hai ricevuto via mail Username e Password.<br />
             Inseriscili nei campi sottostanti per accedere a PROFFILO
-          </p>
-          <form
+            </p>
+            <form
             className="bg-[#a6cde1] rounded-3xl py-10 px-8 flex flex-col gap-7 shadow-lg"
             autoComplete="off"
-          >
+            >
             {/* NOME UTENTE */}
             <div>
-              <label htmlFor="username" className="block font-bold mb-1 uppercase text-[1.1rem]">
+                <label htmlFor="username" className="block font-bold mb-1 uppercase">
                 Nome utente:
-              </label>
-              <div className="flex items-center bg-white rounded-md px-2 py-2 focus-within:ring-2 ring-blue-300">
+                </label>
+                <div className="flex items-center bg-white rounded-md px-2 py-2 focus-within:ring-2 ring-blue-300">
                 <input
-                  id="username"
-                  type="text"
-                  placeholder="Nome Utente"
-                  className="flex-1 bg-transparent outline-none px-2 text-lg"
-                  value={username}
-                  onChange={e => setUsername(e.target.value)}
-                  autoComplete="username"
+                    id="username"
+                    type="text"
+                    placeholder="Nome Utente"
+                    className="flex-1 bg-transparent outline-none px-2"
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
+                    autoComplete="username"
                 />
                 <FaUser className="w-6 h-6 text-gray-700 mx-1" title="Utente" />
                 <FaInfoCircle className="w-6 h-6 text-gray-700 mx-1" title="Inserisci il nome utente ricevuto via mail" />
-              </div>
+                </div>
             </div>
             {/* PASSWORD */}
             <div>
-              <label htmlFor="password" className="block font-bold mb-1 uppercase text-[1.1rem]">
+                <label htmlFor="password" className="block font-bold mb-1 uppercase">
                 Password:
-              </label>
-              <div className="flex items-center bg-white rounded-md px-2 py-2 focus-within:ring-2 ring-blue-300">
+                </label>
+                <div className="flex items-center bg-white rounded-md px-2 py-2 focus-within:ring-2 ring-blue-300">
                 <input
-                  id="password"
-                  type="password"
-                  placeholder="Password"
-                  className="flex-1 bg-transparent outline-none px-2 text-lg"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  autoComplete="current-password"
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                    className="flex-1 bg-transparent outline-none px-2"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    autoComplete="current-password"
                 />
                 <FaLock className="w-6 h-6 text-gray-700 mx-1" title="Password" />
                 <FaInfoCircle className="w-6 h-6 text-gray-700 mx-1" title="Inserisci la password ricevuta via mail" />
-              </div>
+                </div>
             </div>
             {/* CODICE COMMITTENTE */}
             <div>
-              <label htmlFor="clientCode" className="block font-bold mb-1 uppercase text-[1.1rem]">
+                <label htmlFor="clientCode" className="block font-bold mb-1 uppercase">
                 Codice committente:
-              </label>
-              <div className="flex items-center bg-white rounded-md px-2 py-2 focus-within:ring-2 ring-blue-300">
+                </label>
+                <div className="flex items-center bg-white rounded-md px-2 py-2 focus-within:ring-2 ring-blue-300">
                 <input
-                  id="clientCode"
-                  type="text"
-                  placeholder="Codice Committente"
-                  className="flex-1 bg-transparent outline-none px-2 text-lg"
-                  value={clientCode}
-                  onChange={e => setClientCode(e.target.value)}
-                  autoComplete="off"
+                    id="clientCode"
+                    type="text"
+                    placeholder="Codice Committente"
+                    className="flex-1 bg-transparent outline-none px-2"
+                    value={clientCode}
+                    onChange={e => setClientCode(e.target.value)}
+                    autoComplete="off"
                 />
                 <FaInfoCircle className="w-6 h-6 text-gray-700 mx-1" title="Codice fornito dall'amministrazione" />
-              </div>
+                </div>
             </div>
             {/* Pulsante login */}
             <button
-              type="submit"
-              className="w-48 mx-auto h-12 bg-[#33275C] hover:bg-[#221d43] text-white text-2xl font-bold rounded-full mt-2 focus:ring-4 focus:ring-blue-300 focus:outline-none transition"
-              style={{ minHeight: 44, minWidth: 130 }}
+                type="submit"
+                className="w-48 mx-auto h-12 bg-[#33275C] hover:bg-[#221d43] text-white font-bold rounded-full mt-2 focus:ring-4 focus:ring-blue-300 focus:outline-none transition"
+                style={{ minHeight: 44, minWidth: 130 }}
             >
-              Log in
+                Log in
             </button>
-          </form>
-          <div className="mt-8 text-center">
+            </form>
+            <div className="mt-8 text-center">
             <a
-              href="#"
-              className="text-[var(--foreground)] underline underline-offset-4 hover:text-blue-800 focus:text-blue-800"
+                href="#"
+                className="text-[var(--foreground)] underline underline-offset-4 hover:text-blue-800 focus:text-blue-800"
             >
-              Hai dimenticato la password?
+                Hai dimenticato la password?
             </a>
-          </div>
+            </div>
         </div>
-      </main>
+        </main>
     </div>
   );
 }
