@@ -1,32 +1,146 @@
 @import "tailwindcss";
 
+/* ========== PALETTE DI BASE ACCESSIBILE ========== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans, Arial, Helvetica, sans-serif);
-  --font-mono: var(--font-geist-mono, monospace);
+  --background: #fff;
+  --surface: #f7f7f7;
+  --foreground: #181818;
+  --border: #bdbdbd;
+  --primary: #144ba0;
+  --primary-hover: #0d388c;
+  --button-bg: #1346af;
+  --button-fg: #fff;
+  --icon: #181818;
+  --icon-secondary: #5a5a5a;
+  --hc-background-light: #fff;
+  --hc-foreground-light: #144ba0;
+  --hc-border-light: #144ba0;
+  --hc-button-bg-light: #144ba0;
+  --hc-button-fg-light: #fff;
+  --hc-icon-light: #144ba0;
+
+  /* FONT FAMILIES */
+  --font-standard: var(--font-geist-sans, Arial, Helvetica, sans-serif);
+  --font-lexend: 'Lexend', Arial, Helvetica, sans-serif;
+}
+
+/* ========== SPACING MODES ========== */
+.spacing-normal {
+  line-height: 1.3 !important;     /* fra 1.2 e 1.4 */
+  letter-spacing: 0.01em !important; /* fra 0 e 0.02em */
+}
+.spacing-large {
+  line-height: 1.7 !important;     /* fra 1.5 e 2 */
+  letter-spacing: 0.08em !important; /* fra 0.05 e 0.1em */
 }
 
 .theme-dark {
-  --background: #191a23 !important;
-  --foreground: #ededed !important;
+  --background: #121212 !important;
+  --surface: #232323 !important;
+  --foreground: #f7f7f7 !important;
+  --border: #444 !important;
+  --primary: #7ecfff !important;
+  --primary-hover: #5bb1f3 !important;
+  --button-bg: #232323 !important;
+  --button-fg: #fff !important;
+  --icon: #f7f7f7 !important;
+  --icon-secondary: #bbb !important;
+  --hc-background-dark: #000 !important;
+  --hc-foreground-dark: #ffe356 !important;
+  --hc-border-dark: #ffe356 !important;
+  --hc-button-bg-dark: #ffe356 !important;
+  --hc-button-fg-dark: #000 !important;
+  --hc-icon-dark: #ffe356 !important;
 }
 
-.contrast-high {
-  --background: #000 !important;
-  --foreground: #FFD700 !important;
+.contrast-on.theme-dark {
+  --background: var(--hc-background-dark) !important;
+  --surface: var(--hc-background-dark) !important;
+  --foreground: var(--hc-foreground-dark) !important;
+  --border: var(--hc-border-dark) !important;
+  --button-bg: var(--hc-button-bg-dark) !important;
+  --button-fg: var(--hc-button-fg-dark) !important;
+  --icon: var(--hc-icon-dark) !important;
+}
+.contrast-on:not(.theme-dark) {
+  --background: var(--hc-background-light) !important;
+  --surface: var(--hc-background-light) !important;
+  --foreground: var(--hc-foreground-light) !important;
+  --border: var(--hc-border-light) !important;
+  --button-bg: var(--hc-button-bg-light) !important;
+  --button-fg: var(--hc-button-fg-light) !important;
+  --icon: var(--hc-icon-light) !important;
 }
 
-.font-size-sm { font-size: 14px !important; }
+/* FONT SIZE SOLO 3 LIVELLI */
 .font-size-md { font-size: 16px !important; }
-.font-size-lg { font-size: 18px !important; }
-.font-size-xl { font-size: 22px !important; }
+.font-size-lg { font-size: 20px !important; }
+.font-size-xl { font-size: 24px !important; }
 
+/* FONT USER CLASSES */
+.font-user-standard { font-family: var(--font-standard) !important; }
+.font-user-lexend { font-family: var(--font-lexend) !important; }
+.font-user-opendyslexic { font-family: var(--font-opendyslexic) !important; }
+
+/* BASE */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
-  transition: background 0.3s, color 0.3s, font-size 0.2s;
+  font-family: var(--font-standard);
+  transition: background 0.3s, color 0.3s, font-size 0.2s, font-family 0.2s;
+}
+
+/* Spacing Mode su body per ereditare su tutto */
+body.spacing-normal {
+  line-height: 1.3 !important;
+  letter-spacing: 0.01em !important;
+}
+body.spacing-large {
+  line-height: 1.7 !important;
+  letter-spacing: 0.08em !important;
+}
+
+button, .btn {
+  background: var(--button-bg);
+  color: var(--button-fg);
+  border: 2px solid var(--border);
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 0.5em 1.2em;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  box-shadow: 0 1px 4px 0 rgba(30,30,30,0.04);
+}
+button:focus, button:hover, .btn:focus, .btn:hover {
+  background: var(--primary-hover);
+  outline: 2px solid var(--primary);
+}
+
+.icon {
+  color: var(--icon);
+  fill: var(--icon);
+}
+.icon-secondary {
+  color: var(--icon-secondary);
+  fill: var(--icon-secondary);
+}
+
+.menu, .card, .modal, .settings-panel {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  color: var(--foreground);
+  transition: background 0.3s, color 0.3s;
+}
+
+select {
+  background: var(--surface);
+  color: var(--foreground);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 0.4em 0.6em;
+  font-size: 1em;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+select:focus {
+  outline: 2px solid var(--primary);
 }
