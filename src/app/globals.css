@@ -138,3 +138,8 @@ select:focus { outline: 2px solid var(--primary); }
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
 }
+
+:root { --fs-base: 1rem; }
+body.font-size-md { --fs-base: 1rem; }
+body.font-size-lg { --fs-base: 1.25rem; }
+body.font-size-xl { --fs-base: 1.5rem; }

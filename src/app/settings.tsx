@@ -230,26 +230,26 @@ export default function Settings() {
               </select>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="font-semibold block mb-1">Lettura automatica:</label>
-                <select value={autoRead} onChange={e => setAutoRead(e.target.value)} className="border rounded p-1 w-full">
-                  <option value="off">Off</option>
-                  <option value="on">On</option>
-                </select>
-              </div>
-              <div>
-                <label className="font-semibold block mb-1">Volume audio: {volume}%</label>
-                <input
-                  type="range"
-                  min={0}
-                  max={100}
-                  value={volume}
-                  onChange={e => setVolume(e.target.value)}
-                  className="w-full"
-                  aria-label="Volume audio"
-                />
-              </div>
+            {/* --- SEZIONE AUDIO (separata) --- */}
+            <div>
+              <label className="font-semibold block mb-1">Lettura automatica:</label>
+              <select value={autoRead} onChange={e => setAutoRead(e.target.value)} className="border rounded p-1 w-full">
+                <option value="off">Off</option>
+                <option value="on">On</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="font-semibold block mb-1">Volume audio: {volume}%</label>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                value={volume}
+                onChange={e => setVolume(e.target.value)}
+                className="w-full"
+                aria-label="Volume audio"
+              />
             </div>
 
             <div>
