@@ -1,19 +1,20 @@
 @import "tailwindcss";
 
+/* === VARIABILI BASE === */
 :root {
   --background: #fff;
   --surface: #f7f7f7;
   --foreground: #181818;
-  --border: #bdbdbd;
-  --primary: #144ba0;
-  --primary-hover: #0d388c;
-  --button-bg: #1346af;
+  --border: #181818;
+  --primary: #181818;
+  --primary-hover: #181818;
+  --button-bg: #181818;
   --button-fg: #fff;
   --icon: #181818;
   --icon-secondary: #5a5a5a;
 
   --hc-background-light: #fff;
-  --hc-foreground-light: #144ba0;  
+  --hc-foreground-light: #144ba0;
   --hc-border-light: #144ba0;
   --hc-button-bg-light: #144ba0;
   --hc-button-fg-light: #fff;
@@ -22,18 +23,24 @@
   --font-standard: var(--font-geist-sans, Arial, Helvetica, sans-serif);
   --font-lexend: "Lexend", Arial, Helvetica, sans-serif;
 
-  --tap-target: 48px;  
+  /* TARGET TATTABILE (default) */
+  --tap-target: 48px;
+
+  /* Spaziatura derivata dall’area tappabile (coerente su tutti i controlli) */
+  --tap-pad-y: clamp(8px, calc((var(--tap-target) - 32px) / 2), 16px);
+  --tap-pad-x: 12px;
 }
 
+/* === TEMA SCURO + CONTRASTO === */
 .theme-dark {
   --background: #121212 !important;
   --surface: #232323 !important;
   --foreground: #f7f7f7 !important;
-  --border: #444 !important;
+  --border: #ffffff !important;
   --primary: #7ecfff !important;
   --primary-hover: #5bb1f3 !important;
-  --button-bg: #232323 !important;
-  --button-fg: #fff !important;
+  --button-bg: #ffffff !important;
+  --button-fg: #181818 !important;
   --icon: #f7f7f7 !important;
   --icon-secondary: #bbb !important;
 
@@ -64,6 +71,7 @@
   --icon: var(--hc-icon-light) !important;
 }
 
+/* === FONT SIZES === */
 .font-size-md { font-size: 16px !important; }
 .font-size-lg { font-size: 20px !important; }
 .font-size-xl { font-size: 24px !important; }
@@ -75,21 +83,59 @@
 body.spacing-normal { line-height: 1.3 !important; letter-spacing: 0.01em !important; }
 body.spacing-large  { line-height: 1.7 !important; letter-spacing: 0.08em !important; }
 
-
-:where(button, .btn, [role="button"], .tap-target) {
-  min-width: var(--tap-target);
+/* === AREA TAPPABILE GLOBALE === */
+:where(button, .btn, [role="button"], .tap-target,
+  input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="tel"], input[type="url"],
+  select, textarea) {
   min-height: var(--tap-target);
 }
 
+/* padding coerente su controlli e “control” wrapper dei campi */
+:where(button, .btn, [role="button"], .tap-target,
+  input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="tel"], input[type="url"],
+  select, textarea, .control) {
+  padding-block: var(--tap-pad-y);
+  padding-inline: var(--tap-pad-x);
+}
+
+/* Icon button quadrati (se usati) */
+.icon-button {
+  width: var(--tap-target);
+  height: var(--tap-target);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+}
+
+/* Ridimensiona le icone dentro a target grandi senza toccare le icone pure decorative */
+.tap-target :where(.icon, .icon-secondary) {
+  width: calc(var(--tap-target) * 0.4);
+  height: calc(var(--tap-target) * 0.4);
+  min-width: calc(var(--tap-target) * 0.4);
+}
+
+/* Slider: aumenta l’altezza del track in funzione del target */
+input[type="range"] {
+  min-height: var(--tap-target);
+}
+
+/* === TAP SIZE PRESETS === */
+:where(button, .btn, [role="button"], .tap-target) {
+  min-width: var(--tap-target);
+}
+
+/* “Preset” large */
 body.tap-large { --tap-target: 64px; }
 
-body.anim-none * {
-  transition-duration: 0ms !important;
-  animation: none !important;
-}
+/* Animazioni */
+body.anim-none * { transition-duration: 0ms !important; animation: none !important; }
 body.anim-slow *  { transition-duration: 400ms !important; }
 body.anim-normal *{ transition-duration: 200ms !important; }
 
+/* Body base */
 body {
   background: var(--background);
   color: var(--foreground);
@@ -97,22 +143,24 @@ body {
   transition: background 0.3s, color 0.3s, font-size 0.2s, font-family 0.2s;
 }
 
+/* Bottoni */
 button, .btn {
   background: var(--button-bg);
   color: var(--button-fg);
   border: 2px solid var(--border);
   font-weight: 600;
   border-radius: 12px;
-  padding: 0.5em 1.2em;
-  transition: background 0.2s, color 0.2s, border 0.2s;
+  /* padding ora derivato da --tap-pad-* */
   box-shadow: 0 1px 4px 0 rgba(30,30,30,0.04);
+  transition: background 0.2s, color 0.2s, border 0.2s;
 }
-button:focus, .btn:focus,
-button:hover, .btn:hover { background: var(--primary-hover); outline: 2px solid var(--primary); }
+button:focus, .btn:focus, button:hover, .btn:hover { background: var(--primary-hover); outline: 2px solid var(--primary); }
 
+/* Icone */
 .icon { color: var(--icon); fill: var(--icon); }
 .icon-secondary { color: var(--icon-secondary); fill: var(--icon-secondary); }
 
+/* Superfici */
 .menu, .card, .modal, .settings-panel {
   background: var(--surface);
   border: 2px solid var(--border);
@@ -121,17 +169,18 @@ button:hover, .btn:hover { background: var(--primary-hover); outline: 2px solid 
   transition: background 0.3s, color 0.3s;
 }
 
-select {
+/* Select & campi */
+select, input[type="text"], input[type="password"], textarea {
   background: var(--surface);
   color: var(--foreground);
   border: 2px solid var(--border);
   border-radius: 8px;
-  padding: 0.4em 0.6em;
   font-size: 1em;
   transition: background 0.2s, color 0.2s, border 0.2s;
 }
-select:focus { outline: 2px solid var(--primary); }
+select:focus, input[type="text"]:focus, input[type="password"]:focus, textarea:focus { outline: 2px solid var(--primary); }
 
+/* Pannello impostazioni */
 .settings-panel {
   max-height: calc(100dvh - 120px);
   overflow-y: auto;
@@ -139,7 +188,27 @@ select:focus { outline: 2px solid var(--primary); }
   -webkit-overflow-scrolling: touch;
 }
 
+/* Tipografia base reattiva all’impostazione di dimensione testo */
 :root { --fs-base: 1rem; }
 body.font-size-md { --fs-base: 1rem; }
 body.font-size-lg { --fs-base: 1.25rem; }
 body.font-size-xl { --fs-base: 1.5rem; }
+
+.tap-target :where(.icon, .icon-secondary) {
+  font-size: clamp(18px, calc(var(--tap-target) * 0.55), 36px);
+  width: auto !important;   /* ignora eventuali w-6/h-6 */
+  height: 1em !important;
+  min-width: 0;             /* evita forzature */
+}
+
+/* ====== NUOVO: Tema chiaro SENZA contrasto alto -> bottone primary ====== */
+.theme-light:not(.contrast-on) button.btn,
+.theme-light:not(.contrast-on) .btn {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.theme-light:not(.contrast-on) button.btn:hover,
+.theme-light:not(.contrast-on) .btn:hover {
+  background: var(--primary-hover) !important;
+}

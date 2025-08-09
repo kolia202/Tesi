@@ -53,7 +53,7 @@ export default function Settings() {
 
   useEffect(() => {
     const computed =
-      `${theme === "dark" ? " theme-dark" : ""}` +
+      `${theme === "dark" ? " theme-dark" : " theme-light"}` + // aggiunta theme-light
       ` font-size-${fontSize} font-user-${fontFamily} spacing-${spacing}` +
       `${contrast === "on" ? " contrast-on" : ""}` +
       `${tap === "large" ? " tap-large" : ""}` +
@@ -118,7 +118,7 @@ export default function Settings() {
   };
 
   const mirrorClasses =
-    `${theme === "dark" ? " theme-dark" : ""}` +
+    `${theme === "dark" ? " theme-dark" : " theme-light"}` + // aggiunta theme-light
     ` font-size-${fontSize} font-user-${fontFamily} spacing-${spacing}` +
     `${contrast === "on" ? " contrast-on" : ""}` +
     `${tap === "large" ? " tap-large" : ""}` +
@@ -144,13 +144,13 @@ export default function Settings() {
   return (
     <>
       <button
-        className="fixed top-6 right-6 z-50 rounded-full shadow p-2 border text-2xl flex items-center justify-center"
+        className="fixed top-6 right-6 z-50 rounded-full shadow p-2 border text-2xl flex items-center justify-center tap-target"
         style={{ background: "var(--surface)", color: "var(--icon)", borderColor: "var(--border)" }}
         onClick={() => setOpen(o => !o)}
         aria-label="Impostazioni accessibilità"
         type="button"
       >
-        <FaCog className="w-7 h-7 icon" />
+        <FaCog className="icon" />
       </button>
 
       {open && (
