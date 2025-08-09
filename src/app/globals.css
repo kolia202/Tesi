@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* ========== PALETTE DI BASE ACCESSIBILE ========== */
 :root {
   --background: #fff;
   --surface: #f7f7f7;
@@ -12,26 +11,18 @@
   --button-fg: #fff;
   --icon: #181818;
   --icon-secondary: #5a5a5a;
+
   --hc-background-light: #fff;
-  --hc-foreground-light: #144ba0;
+  --hc-foreground-light: #144ba0;  
   --hc-border-light: #144ba0;
   --hc-button-bg-light: #144ba0;
   --hc-button-fg-light: #fff;
   --hc-icon-light: #144ba0;
 
-  /* FONT FAMILIES */
   --font-standard: var(--font-geist-sans, Arial, Helvetica, sans-serif);
-  --font-lexend: 'Lexend', Arial, Helvetica, sans-serif;
-}
+  --font-lexend: "Lexend", Arial, Helvetica, sans-serif;
 
-/* ========== SPACING MODES ========== */
-.spacing-normal {
-  line-height: 1.3 !important;     /* fra 1.2 e 1.4 */
-  letter-spacing: 0.01em !important; /* fra 0 e 0.02em */
-}
-.spacing-large {
-  line-height: 1.7 !important;     /* fra 1.5 e 2 */
-  letter-spacing: 0.08em !important; /* fra 0.05 e 0.1em */
+  --tap-target: 48px;  
 }
 
 .theme-dark {
@@ -45,6 +36,7 @@
   --button-fg: #fff !important;
   --icon: #f7f7f7 !important;
   --icon-secondary: #bbb !important;
+
   --hc-background-dark: #000 !important;
   --hc-foreground-dark: #ffe356 !important;
   --hc-border-dark: #ffe356 !important;
@@ -72,32 +64,37 @@
   --icon: var(--hc-icon-light) !important;
 }
 
-/* FONT SIZE SOLO 3 LIVELLI */
 .font-size-md { font-size: 16px !important; }
 .font-size-lg { font-size: 20px !important; }
 .font-size-xl { font-size: 24px !important; }
 
-/* FONT USER CLASSES */
 .font-user-standard { font-family: var(--font-standard) !important; }
 .font-user-lexend { font-family: var(--font-lexend) !important; }
 .font-user-opendyslexic { font-family: var(--font-opendyslexic) !important; }
 
-/* BASE */
+body.spacing-normal { line-height: 1.3 !important; letter-spacing: 0.01em !important; }
+body.spacing-large  { line-height: 1.7 !important; letter-spacing: 0.08em !important; }
+
+
+:where(button, .btn, [role="button"], .tap-target) {
+  min-width: var(--tap-target);
+  min-height: var(--tap-target);
+}
+
+body.tap-large { --tap-target: 64px; }
+
+body.anim-none * {
+  transition-duration: 0ms !important;
+  animation: none !important;
+}
+body.anim-slow *  { transition-duration: 400ms !important; }
+body.anim-normal *{ transition-duration: 200ms !important; }
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-standard);
   transition: background 0.3s, color 0.3s, font-size 0.2s, font-family 0.2s;
-}
-
-/* Spacing Mode su body per ereditare su tutto */
-body.spacing-normal {
-  line-height: 1.3 !important;
-  letter-spacing: 0.01em !important;
-}
-body.spacing-large {
-  line-height: 1.7 !important;
-  letter-spacing: 0.08em !important;
 }
 
 button, .btn {
@@ -110,19 +107,11 @@ button, .btn {
   transition: background 0.2s, color 0.2s, border 0.2s;
   box-shadow: 0 1px 4px 0 rgba(30,30,30,0.04);
 }
-button:focus, button:hover, .btn:focus, .btn:hover {
-  background: var(--primary-hover);
-  outline: 2px solid var(--primary);
-}
+button:focus, .btn:focus,
+button:hover, .btn:hover { background: var(--primary-hover); outline: 2px solid var(--primary); }
 
-.icon {
-  color: var(--icon);
-  fill: var(--icon);
-}
-.icon-secondary {
-  color: var(--icon-secondary);
-  fill: var(--icon-secondary);
-}
+.icon { color: var(--icon); fill: var(--icon); }
+.icon-secondary { color: var(--icon-secondary); fill: var(--icon-secondary); }
 
 .menu, .card, .modal, .settings-panel {
   background: var(--surface);
@@ -141,6 +130,11 @@ select {
   font-size: 1em;
   transition: background 0.2s, color 0.2s, border 0.2s;
 }
-select:focus {
-  outline: 2px solid var(--primary);
+select:focus { outline: 2px solid var(--primary); }
+
+.settings-panel {
+  max-height: calc(100dvh - 120px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
