@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import {
   FaUser,
@@ -67,6 +68,13 @@ export default function LoginPage() {
   const [clientCode, setClientCode] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [openPopup, setOpenPopup] = useState<string | null>(null);
+  const router = useRouter();
+
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // eventuale validazione dei campi
+    router.push("/classi");
+  };
 
   return (
     <div className="min-h-screen flex bg-[var(--background)] text-[var(--foreground)] transition-colors duration-300">
@@ -177,6 +185,7 @@ export default function LoginPage() {
           </p>
 
           <form
+            onSubmit={handleLogin}
             className="rounded-3xl py-10 px-8 flex flex-col gap-7 shadow-lg"
             style={{
               background: "var(--surface)",

@@ -26,7 +26,7 @@
   /* TARGET TATTABILE (default) */
   --tap-target: 48px;
 
-  /* Spaziatura derivata dall’area tappabile (coerente su tutti i controlli) */
+  /* Spaziatura derivata dall’area tappabile */
   --tap-pad-y: clamp(8px, calc((var(--tap-target) - 32px) / 2), 16px);
   --tap-pad-x: 12px;
 }
@@ -90,7 +90,7 @@ body.spacing-large  { line-height: 1.7 !important; letter-spacing: 0.08em !impor
   min-height: var(--tap-target);
 }
 
-/* padding coerente su controlli e “control” wrapper dei campi */
+/* padding coerente */
 :where(button, .btn, [role="button"], .tap-target,
   input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="tel"], input[type="url"],
   select, textarea, .control) {
@@ -110,24 +110,18 @@ body.spacing-large  { line-height: 1.7 !important; letter-spacing: 0.08em !impor
   background: var(--surface);
 }
 
-/* Ridimensiona le icone dentro a target grandi senza toccare le icone pure decorative */
+/* Ridimensiona le icone dentro target grandi */
 .tap-target :where(.icon, .icon-secondary) {
   width: calc(var(--tap-target) * 0.4);
   height: calc(var(--tap-target) * 0.4);
   min-width: calc(var(--tap-target) * 0.4);
 }
 
-/* Slider: aumenta l’altezza del track in funzione del target */
-input[type="range"] {
-  min-height: var(--tap-target);
-}
+/* Slider */
+input[type="range"] { min-height: var(--tap-target); }
 
 /* === TAP SIZE PRESETS === */
-:where(button, .btn, [role="button"], .tap-target) {
-  min-width: var(--tap-target);
-}
-
-/* “Preset” large */
+:where(button, .btn, [role="button"], .tap-target) { min-width: var(--tap-target); }
 body.tap-large { --tap-target: 64px; }
 
 /* Animazioni */
@@ -150,11 +144,12 @@ button, .btn {
   border: 2px solid var(--border);
   font-weight: 600;
   border-radius: 12px;
-  /* padding ora derivato da --tap-pad-* */
   box-shadow: 0 1px 4px 0 rgba(30,30,30,0.04);
   transition: background 0.2s, color 0.2s, border 0.2s;
 }
-button:focus, .btn:focus, button:hover, .btn:hover { background: var(--primary-hover); outline: 2px solid var(--primary); }
+button:focus, .btn:focus, button:hover, .btn:hover {
+  background: var(--primary-hover); outline: 2px solid var(--primary);
+}
 
 /* Icone */
 .icon { color: var(--icon); fill: var(--icon); }
@@ -178,7 +173,9 @@ select, input[type="text"], input[type="password"], textarea {
   font-size: 1em;
   transition: background 0.2s, color 0.2s, border 0.2s;
 }
-select:focus, input[type="text"]:focus, input[type="password"]:focus, textarea:focus { outline: 2px solid var(--primary); }
+select:focus, input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
+  outline: 2px solid var(--primary);
+}
 
 /* Pannello impostazioni */
 .settings-panel {
@@ -186,6 +183,9 @@ select:focus, input[type="text"]:focus, input[type="password"]:focus, textarea:f
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
+
+  /* per drag su touch senza “rubare” lo scroll della pagina */
+  touch-action: none;
 }
 
 /* Tipografia base reattiva all’impostazione di dimensione testo */
@@ -196,19 +196,30 @@ body.font-size-xl { --fs-base: 1.5rem; }
 
 .tap-target :where(.icon, .icon-secondary) {
   font-size: clamp(18px, calc(var(--tap-target) * 0.55), 36px);
-  width: auto !important;   /* ignora eventuali w-6/h-6 */
+  width: auto !important;
   height: 1em !important;
-  min-width: 0;             /* evita forzature */
+  min-width: 0;
 }
 
-/* ====== NUOVO: Tema chiaro SENZA contrasto alto -> bottone primary ====== */
+/* Tema chiaro -> bottone primary */
 .theme-light:not(.contrast-on) button.btn,
 .theme-light:not(.contrast-on) .btn {
   background: var(--primary) !important;
   border-color: var(--primary) !important;
 }
-
 .theme-light:not(.contrast-on) button.btn:hover,
 .theme-light:not(.contrast-on) .btn:hover {
   background: var(--primary-hover) !important;
+}
+
+/* Icone dentro ai bottoni = stesso colore del testo del bottone */
+button .icon, .btn .icon {
+  color: currentColor !important;
+  fill: currentColor !important;
+}
+
+.sidebar .icon,
+.sidebar svg {
+  color: #fff !important;
+  fill: #fff !important;
 }
