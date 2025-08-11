@@ -1,77 +1,99 @@
 @import "tailwindcss";
 
-/* === VARIABILI BASE === */
 :root {
-  --background: #fff;
-  --surface: #f7f7f7;
-  --foreground: #181818;
-  --border: #181818;
-  --primary: #181818;
-  --primary-hover: #181818;
-  --button-bg: #181818;
-  --button-fg: #fff;
-  --icon: #181818;
+  --background: #ffffff;        
+  --surface: #f7f7f7;          
+  --foreground: #181818;        
+  --border: #c2c2c2;            
+
+  --primary: #144ba0;
+  --primary-hover: #0f3c82;
+  --button-bg: #144ba0;
+  --button-fg: #ffffff;
+
+  --icon: #144ba0;
   --icon-secondary: #5a5a5a;
 
-  --hc-background-light: #fff;
-  --hc-foreground-light: #144ba0;
-  --hc-border-light: #144ba0;
-  --hc-button-bg-light: #144ba0;
-  --hc-button-fg-light: #fff;
-  --hc-icon-light: #144ba0;
+  --hc-background-light: #ffffff;
+  --hc-foreground-light: #000000;
+  --hc-border-light: #000000;
+  --hc-button-bg-light: #000000;
+  --hc-button-fg-light: #ffffff;
+  --hc-icon-light: #000000;
 
   --font-standard: var(--font-geist-sans, Arial, Helvetica, sans-serif);
   --font-lexend: "Lexend", Arial, Helvetica, sans-serif;
 
-  /* TARGET TATTABILE (default) */
   --tap-target: 48px;
-
-  /* Spaziatura derivata dall’area tappabile */
   --tap-pad-y: clamp(8px, calc((var(--tap-target) - 32px) / 2), 16px);
   --tap-pad-x: 12px;
+
+  --fs-base: 1rem;
 }
 
-/* === TEMA SCURO + CONTRASTO === */
+.theme-light {
+  --background: #ffffff !important;
+  --surface: #f7f7f7 !important;
+  --foreground: #181818 !important;
+  --border: #c2c2c2 !important;
+
+  --primary: #144ba0 !important;
+  --primary-hover: #0f3c82 !important;
+  --button-bg: #144ba0 !important;
+  --button-fg: #ffffff !important;
+
+  --icon: #144ba0 !important;
+  --icon-secondary: #5a5a5a !important;
+}
+
 .theme-dark {
-  --background: #121212 !important;
-  --surface: #232323 !important;
-  --foreground: #f7f7f7 !important;
-  --border: #ffffff !important;
+  --background: #121212 !important;  
+  --surface: #232323 !important;     
+  --foreground: #f5f5f5 !important; 
+  --border: #888888 !important;      
+
   --primary: #7ecfff !important;
   --primary-hover: #5bb1f3 !important;
-  --button-bg: #ffffff !important;
-  --button-fg: #181818 !important;
-  --icon: #f7f7f7 !important;
-  --icon-secondary: #bbb !important;
+  --button-bg: #7ecfff !important;
+  --button-fg: #121212 !important;
 
-  --hc-background-dark: #000 !important;
-  --hc-foreground-dark: #ffe356 !important;
-  --hc-border-dark: #ffe356 !important;
-  --hc-button-bg-dark: #ffe356 !important;
-  --hc-button-fg-dark: #000 !important;
-  --hc-icon-dark: #ffe356 !important;
+  --icon: #f5f5f5 !important;
+  --icon-secondary: #bbbbbb !important;
+
+  --hc-background-dark: #000000 !important;
+  --hc-foreground-dark: #ffff00 !important;
+  --hc-border-dark: #ffff00 !important;
+  --hc-button-bg-dark: #ffff00 !important;
+  --hc-button-fg-dark: #000000 !important;
+  --hc-icon-dark: #ffff00 !important;
+}
+
+.contrast-on:not(.theme-dark) {
+  --background: var(--hc-background-light) !important; 
+  --surface: var(--hc-background-light) !important;    
+  --foreground: var(--hc-foreground-light) !important; 
+  --border: var(--hc-border-light) !important;         
+  --primary: var(--hc-border-light) !important;
+  --primary-hover: var(--hc-border-light) !important;
+  --button-bg: var(--hc-button-bg-light) !important;   
+  --button-fg: var(--hc-button-fg-light) !important;  
+  --icon: var(--hc-icon-light) !important;             
+  --icon-secondary: var(--hc-icon-light) !important;
 }
 
 .contrast-on.theme-dark {
-  --background: var(--hc-background-dark) !important;
-  --surface: var(--hc-background-dark) !important;
-  --foreground: var(--hc-foreground-dark) !important;
-  --border: var(--hc-border-dark) !important;
-  --button-bg: var(--hc-button-bg-dark) !important;
-  --button-fg: var(--hc-button-fg-dark) !important;
-  --icon: var(--hc-icon-dark) !important;
-}
-.contrast-on:not(.theme-dark) {
-  --background: var(--hc-background-light) !important;
-  --surface: var(--hc-background-light) !important;
-  --foreground: var(--hc-foreground-light) !important;
-  --border: var(--hc-border-light) !important;
-  --button-bg: var(--hc-button-bg-light) !important;
-  --button-fg: var(--hc-button-fg-light) !important;
-  --icon: var(--hc-icon-light) !important;
+  --background: var(--hc-background-dark) !important;  
+  --surface: var(--hc-background-dark) !important;     
+  --foreground: var(--hc-foreground-dark) !important;  
+  --border: var(--hc-border-dark) !important;          
+  --primary: var(--hc-border-dark) !important;
+  --primary-hover: var(--hc-border-dark) !important;
+  --button-bg: var(--hc-button-bg-dark) !important;    
+  --button-fg: var(--hc-button-fg-dark) !important;    
+  --icon: var(--hc-icon-dark) !important;              
+  --icon-secondary: var(--hc-icon-dark) !important;
 }
 
-/* === FONT SIZES === */
 .font-size-md { font-size: 16px !important; }
 .font-size-lg { font-size: 20px !important; }
 .font-size-xl { font-size: 24px !important; }
@@ -80,17 +102,19 @@
 .font-user-lexend { font-family: var(--font-lexend) !important; }
 .font-user-opendyslexic { font-family: var(--font-opendyslexic) !important; }
 
+body.font-size-md { --fs-base: 1rem; }
+body.font-size-lg { --fs-base: 1.25rem; }
+body.font-size-xl { --fs-base: 1.5rem; }
+
 body.spacing-normal { line-height: 1.3 !important; letter-spacing: 0.01em !important; }
 body.spacing-large  { line-height: 1.7 !important; letter-spacing: 0.08em !important; }
 
-/* === AREA TAPPABILE GLOBALE === */
 :where(button, .btn, [role="button"], .tap-target,
   input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="tel"], input[type="url"],
   select, textarea) {
   min-height: var(--tap-target);
 }
 
-/* padding coerente */
 :where(button, .btn, [role="button"], .tap-target,
   input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="tel"], input[type="url"],
   select, textarea, .control) {
@@ -98,7 +122,11 @@ body.spacing-large  { line-height: 1.7 !important; letter-spacing: 0.08em !impor
   padding-inline: var(--tap-pad-x);
 }
 
-/* Icon button quadrati (se usati) */
+:where(button, .btn, [role="button"], .tap-target) { min-width: var(--tap-target); }
+body.tap-large { --tap-target: 64px; }
+
+input[type="range"] { min-height: var(--tap-target); }
+
 .icon-button {
   width: var(--tap-target);
   height: var(--tap-target);
@@ -110,90 +138,6 @@ body.spacing-large  { line-height: 1.7 !important; letter-spacing: 0.08em !impor
   background: var(--surface);
 }
 
-/* Ridimensiona le icone dentro target grandi */
-.tap-target :where(.icon, .icon-secondary) {
-  width: calc(var(--tap-target) * 0.4);
-  height: calc(var(--tap-target) * 0.4);
-  min-width: calc(var(--tap-target) * 0.4);
-}
-
-/* Slider */
-input[type="range"] { min-height: var(--tap-target); }
-
-/* === TAP SIZE PRESETS === */
-:where(button, .btn, [role="button"], .tap-target) { min-width: var(--tap-target); }
-body.tap-large { --tap-target: 64px; }
-
-/* Animazioni */
-body.anim-none * { transition-duration: 0ms !important; animation: none !important; }
-body.anim-slow *  { transition-duration: 400ms !important; }
-body.anim-normal *{ transition-duration: 200ms !important; }
-
-/* Body base */
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-standard);
-  transition: background 0.3s, color 0.3s, font-size 0.2s, font-family 0.2s;
-}
-
-/* Bottoni */
-button, .btn {
-  background: var(--button-bg);
-  color: var(--button-fg);
-  border: 2px solid var(--border);
-  font-weight: 600;
-  border-radius: 12px;
-  box-shadow: 0 1px 4px 0 rgba(30,30,30,0.04);
-  transition: background 0.2s, color 0.2s, border 0.2s;
-}
-button:focus, .btn:focus, button:hover, .btn:hover {
-  background: var(--primary-hover); outline: 2px solid var(--primary);
-}
-
-/* Icone */
-.icon { color: var(--icon); fill: var(--icon); }
-.icon-secondary { color: var(--icon-secondary); fill: var(--icon-secondary); }
-
-/* Superfici */
-.menu, .card, .modal, .settings-panel {
-  background: var(--surface);
-  border: 2px solid var(--border);
-  border-radius: 16px;
-  color: var(--foreground);
-  transition: background 0.3s, color 0.3s;
-}
-
-/* Select & campi */
-select, input[type="text"], input[type="password"], textarea {
-  background: var(--surface);
-  color: var(--foreground);
-  border: 2px solid var(--border);
-  border-radius: 8px;
-  font-size: 1em;
-  transition: background 0.2s, color 0.2s, border 0.2s;
-}
-select:focus, input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
-  outline: 2px solid var(--primary);
-}
-
-/* Pannello impostazioni */
-.settings-panel {
-  max-height: calc(100dvh - 120px);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-
-  /* per drag su touch senza “rubare” lo scroll della pagina */
-  touch-action: none;
-}
-
-/* Tipografia base reattiva all’impostazione di dimensione testo */
-:root { --fs-base: 1rem; }
-body.font-size-md { --fs-base: 1rem; }
-body.font-size-lg { --fs-base: 1.25rem; }
-body.font-size-xl { --fs-base: 1.5rem; }
-
 .tap-target :where(.icon, .icon-secondary) {
   font-size: clamp(18px, calc(var(--tap-target) * 0.55), 36px);
   width: auto !important;
@@ -201,7 +145,31 @@ body.font-size-xl { --fs-base: 1.5rem; }
   min-width: 0;
 }
 
-/* Tema chiaro -> bottone primary */
+body.anim-none * { transition-duration: 0ms !important; animation: none !important; }
+body.anim-slow *  { transition-duration: 400ms !important; }
+body.anim-normal *{ transition-duration: 200ms !important; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-standard);
+  transition: background 0.3s, color 0.3s, font-size 0.2s, font-family 0.2s;
+}
+
+button, .btn {
+  background: var(--button-bg);
+  color: var(--button-fg);
+  border: 2px solid var(--border);
+  font-weight: 600;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px 0 rgba(30,30,30,0.04);
+  transition: background 0.2s, color 0.2s, border 0.2s, outline-color 0.2s;
+}
+button:focus, .btn:focus, button:hover, .btn:hover {
+  background: var(--primary-hover);
+  outline: 2px solid var(--primary);
+}
+
 .theme-light:not(.contrast-on) button.btn,
 .theme-light:not(.contrast-on) .btn {
   background: var(--primary) !important;
@@ -212,10 +180,41 @@ body.font-size-xl { --fs-base: 1.5rem; }
   background: var(--primary-hover) !important;
 }
 
-/* Icone dentro ai bottoni = stesso colore del testo del bottone */
+.icon { color: var(--icon); fill: var(--icon); }
+.icon-secondary { color: var(--icon-secondary); fill: var(--icon-secondary); }
+
 button .icon, .btn .icon {
   color: currentColor !important;
   fill: currentColor !important;
+}
+
+.menu, .card, .modal, .settings-panel {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  color: var(--foreground);
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+select, input[type="text"], input[type="password"], input[type="search"], textarea {
+  background: var(--surface);
+  color: var(--foreground);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1em;
+  transition: background 0.2s, color 0.2s, border 0.2s, outline-color 0.2s;
+}
+select:focus, input[type="text"]:focus, input[type="password"]:focus,
+input[type="search"]:focus, textarea:focus {
+  outline: 2px solid var(--primary);
+}
+
+.settings-panel {
+  max-height: calc(100dvh - 120px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: none;
 }
 
 .sidebar .icon,

@@ -4,8 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   FaGamepad, FaEnvelope, FaPhoneAlt,
-  FaSearch, FaUsers, FaDownload,
-  FaChartBar, FaInfoCircle
+  FaSearch, FaUsers, FaPrint, FaChartBar, FaInfoCircle
 } from "react-icons/fa";
 
 type Group = { id: string; name: string };
@@ -15,12 +14,12 @@ const GROUPS: Group[] = [
 ];
 
 const MENU_ITEMS = [
-  { id: "gestione", label: "GESTIONE", href: "/classi", icon: FaUsers },
+  { id: "gestione", label: "GESTIONE", href: "/classi",     icon: FaUsers },
   { id: "risultati", label: "RISULTATI", href: "/risultati", icon: FaChartBar },
-  { id: "risorse",  label: "RISORSE",  href: "/risorse",  icon: FaInfoCircle },
+  { id: "risorse",  label: "RISORSE",   href: "/risorse",   icon: FaInfoCircle },
 ];
 
-export default function ClassiPage() {
+export default function RisultatiPage() {
   const [query, setQuery] = useState("");
   const pathname = usePathname();
   const router = useRouter();
@@ -44,11 +43,8 @@ export default function ClassiPage() {
         }}
       >
         <div className="flex items-center gap-6 mb-8">
-          <img
-            src="/logo.png"
-            alt="Develop Players Logo"
-            className="w-20 h-20 rounded-full object-contain bg-white shadow shrink-0"
-          />
+          <img src="/logo.png" alt="Develop Players Logo"
+               className="w-20 h-20 rounded-full object-contain bg-white shadow shrink-0" />
           <div className="min-w-0">
             <div style={{ fontWeight: 800, lineHeight: 1.1, fontSize: "calc(var(--fs-base) * 1.8)" }}>
               <div>Develop</div>
@@ -57,10 +53,7 @@ export default function ClassiPage() {
                 <span>Players</span>
               </div>
             </div>
-            <div
-              className="mt-2"
-              style={{ fontWeight: 300, letterSpacing: ".02em", whiteSpace: "nowrap", fontSize: "calc(var(--fs-base) * 1.1)" }}
-            >
+            <div className="mt-2" style={{ fontWeight: 300, letterSpacing: ".02em", whiteSpace: "nowrap", fontSize: "calc(var(--fs-base) * 1.1)" }}>
               potential knows no limits
             </div>
           </div>
@@ -155,16 +148,17 @@ export default function ClassiPage() {
         </div>
 
         <div className="border-b-2" style={{ borderColor: "var(--border)" }}>
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_240px_240px] gap-3 py-3 font-semibold">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_260px_260px_260px] gap-3 py-3 font-semibold">
             <div>Gruppi</div>
             <div className="md:text-center">Utenti</div>
-            <div className="md:text-center">Foglio codici</div>
+            <div className="md:text-center">Risultati Profilo</div>
+            <div className="md:text-center">Risultati Questionario</div>
           </div>
         </div>
 
         <ul className="divide-y-2" style={{ borderColor: "var(--border)" }}>
           {filtered.map((g) => (
-            <li key={g.id} className="grid grid-cols-1 md:grid-cols-[1fr_240px_240px] gap-3 items-center py-4">
+            <li key={g.id} className="grid grid-cols-1 md:grid-cols-[1fr_260px_260px_260px] gap-3 items-center py-4">
               <div>
                 <div
                   className="inline-block rounded-md px-4 py-3"
@@ -177,14 +171,13 @@ export default function ClassiPage() {
 
               <div className="md:justify-self-center">
                 <button
-                  className="btn tap-target flex items-center justify-center gap-3 w-full md:w-56 rounded-full"
+                  className="btn tap-target flex items-center justify-center gap-3 w-full md:w-56 font-bold"
                   type="button"
                   aria-label={`Visualizza utenti del gruppo ${g.name}`}
                   style={{
                     background: "var(--button-bg)",
                     color: "var(--button-fg)",
-                    borderColor: "var(--border)",
-                    minWidth: 130
+                    borderColor: "var(--border)"
                   }}
                 >
                   <span>Visualizza</span>
@@ -193,39 +186,61 @@ export default function ClassiPage() {
               </div>
 
               <div className="md:justify-self-center">
-                <button
-                  className="btn tap-target flex items-center justify-center gap-3 w-full md:w-56 rounded-full"
-                  type="button"
-                  aria-label={`Scarica foglio codici del gruppo ${g.name}`}
+                <div
+                  className="tap-target w-full md:w-56 rounded-md flex items-center justify-center"
                   style={{
-                    background: "var(--button-bg)",
-                    color: "var(--button-fg)",
-                    borderColor: "var(--border)",
-                    minWidth: 130
+                    background: "transparent",
+                    color: "var(--foreground)",
+                    border: "2px solid var(--border)"
                   }}
+                  aria-label={`Risultati profilo per ${g.name}`}
                 >
-                  <span>Download</span>
-                  <FaDownload className="icon" aria-hidden="true" />
-                </button>
+                  0 Risultati
+                </div>
+              </div>
+
+              <div className="md:justify-self-center">
+                <div
+                  className="tap-target w-full md:w-56 rounded-md flex items-center justify-center"
+                  style={{
+                    background: "transparent",
+                    color: "var(--foreground)",
+                    border: "2px solid var(--border)"
+                  }}
+                  aria-label={`Risultati questionario per ${g.name}`}
+                >
+                  0 Risultati
+                </div>
               </div>
             </li>
           ))}
         </ul>
 
-        <div className="mt-8 flex justify-end">
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
           <button
-            className="btn tap-target flex items-center gap-3 w-full sm:w-auto rounded-full"
+            className="btn tap-target flex items-center justify-between gap-4 px-6 font-bold"
             type="button"
-            aria-label="Scarica tutti i fogli codici"
             style={{
               background: "var(--button-bg)",
               color: "var(--button-fg)",
-              borderColor: "var(--border)",
-              minWidth: 130
+              borderColor: "var(--border)"
             }}
           >
-            <span>Scarica tutto</span>
-            <FaDownload className="icon" aria-hidden="true" />
+            <span>Stampa risultati Profilo</span>
+            <FaPrint className="icon" aria-hidden />
+          </button>
+
+          <button
+            className="btn tap-target flex items-center justify-between gap-4 px-6 font-bold"
+            type="button"
+            style={{
+              background: "var(--button-bg)",
+              color: "var(--button-fg)",
+              borderColor: "var(--border)"
+            }}
+          >
+            <span>Stampa risultati Questionario</span>
+            <FaPrint className="icon" aria-hidden />
           </button>
         </div>
       </main>

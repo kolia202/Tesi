@@ -72,13 +72,11 @@ export default function LoginPage() {
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // eventuale validazione dei campi
     router.push("/classi");
   };
 
   return (
     <div className="min-h-screen flex bg-[var(--background)] text-[var(--foreground)] transition-colors duration-300">
-      {/* Sidebar */}
       <aside
         className="hidden md:flex flex-col justify-between p-10 text-white shrink-0"
         style={{
@@ -175,7 +173,6 @@ export default function LoginPage() {
         </div>
       </aside>
 
-      {/* Main */}
       <main className="flex-1 flex flex-col justify-center items-center px-4 py-8">
         <div className="max-w-2xl w-full">
           <h2 className="font-bold text-center mb-2">LOGIN</h2>
@@ -193,7 +190,6 @@ export default function LoginPage() {
             }}
             autoComplete="off"
           >
-            {/* USERNAME */}
             <div className="relative">
               <label
                 htmlFor="username"
@@ -237,7 +233,6 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* PASSWORD */}
             <div className="relative">
               <label
                 htmlFor="password"
@@ -293,7 +288,6 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* CLIENT CODE */}
             <div className="relative">
               <label
                 htmlFor="clientCode"
@@ -336,7 +330,6 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* BUTTON */}
             <button
               type="submit"
               className="w-48 mx-auto font-bold rounded-full mt-2 focus:ring-4 focus:outline-none btn tap-target"

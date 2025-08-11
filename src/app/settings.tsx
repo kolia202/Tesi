@@ -2,14 +2,12 @@
 import { useEffect, useRef, useState } from "react";
 import { FaCog } from "react-icons/fa";
 
-/* ---------- Utils: Local Storage safe ---------- */
 const getPref = (k: string, fb: string) =>
   typeof window !== "undefined" ? localStorage.getItem(k) || fb : fb;
 const setPref = (k: string, v: string) => {
   if (typeof window !== "undefined") localStorage.setItem(k, v);
 };
 
-/* ---------- Defaults ---------- */
 const DEFAULTS = {
   theme: "light",
   contrast: "off",
@@ -27,14 +25,12 @@ const DEFAULTS = {
   navSimple: "off",
 };
 
-/* ---------- Draggable gear constants ---------- */
 const GEAR_POS_KEY = "settingsBtnTop";
 const GEAR_MARGIN = 8;
 const GEAR_FALLBACK_SIZE = 64;
 const DRAG_THRESHOLD = 5;
 
 export default function Settings() {
-  /* ---------- Preferences state ---------- */
   const [theme, setTheme] = useState(() => getPref("theme", DEFAULTS.theme));
   const [contrast, setContrast] = useState(() => getPref("contrast", DEFAULTS.contrast));
   const [fontSize, setFontSize] = useState(() => getPref("fontSize", DEFAULTS.fontSize));
@@ -53,7 +49,6 @@ export default function Settings() {
 
   const [open, setOpen] = useState(false);
 
-  /* ---------- Apply classes to <body> ---------- */
   const baseBodyClassesRef = useRef<string | null>(null);
   useEffect(() => {
     if (typeof document !== "undefined") {
@@ -95,7 +90,6 @@ export default function Settings() {
     activityDur, feedback, navSimple
   ]);
 
-  /* ---------- Mirror body classes inside panel ---------- */
   const mirrorClasses =
     `${theme === "dark" ? " theme-dark" : " theme-light"}` +
     ` font-size-${fontSize} font-user-${fontFamily} spacing-${spacing}` +
@@ -103,7 +97,6 @@ export default function Settings() {
     `${tap === "large" ? " tap-large" : ""}` +
     (animations === "none" ? " anim-none" : animations === "slow" ? " anim-slow" : " anim-normal");
 
-  /* ---------- Dynamic fg color for the panel ---------- */
   const [fgColor, setFgColor] = useState("var(--foreground)");
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -112,7 +105,6 @@ export default function Settings() {
     }
   }, [theme, contrast, fontFamily, fontSize, spacing]);
 
-  /* ---------- Feedback toggles ---------- */
   const feedbackSet = new Set(feedback.split(",").filter(Boolean));
   const toggleFeedback = (key: "visual" | "sound" | "tactile") => {
     const s = new Set(feedbackSet);
@@ -120,7 +112,6 @@ export default function Settings() {
     setFeedback(Array.from(s).join(","));
   };
 
-  /* ---------- Reset ---------- */
   const handleReset = () => {
     setTheme(DEFAULTS.theme);
     setContrast(DEFAULTS.contrast);
@@ -138,7 +129,6 @@ export default function Settings() {
     setNavSimple(DEFAULTS.navSimple);
   };
 
-  /* ---------- Open/close panel side effects ---------- */
   const panelRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -156,17 +146,11 @@ export default function Settings() {
     };
   }, [open]);
 
-  /* ======================================================================
-     DRAGGABLE GEAR — FIX HYDRATION
-     ====================================================================== */
   const gearBtnRef = useRef<HTMLButtonElement | null>(null);
 
-  // 1) Primo render identico tra server e client.
-  //    Non impostiamo 'top' finché il client non è montato.
   const [mounted, setMounted] = useState(false);
-  const [gearTop, setGearTop] = useState<number>(24); // valore stabile per SSR/CSR
+  const [gearTop, setGearTop] = useState<number>(24); 
 
-  // 2) Dopo il mount: leggi localStorage, clampa alla viewport e attacca i listener.
   useEffect(() => {
     setMounted(true);
 
@@ -187,16 +171,13 @@ export default function Settings() {
       return Math.min(Math.max(t, GEAR_MARGIN), maxTop);
     };
 
-    // set iniziale post-mount
     setGearTop(clampToViewport(readSavedTop()));
 
-    // resize handler
     const onResize = () => setGearTop((t) => clampToViewport(t));
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Drag state temporaneo
   const dragRef = useRef<{ startY: number; startTop: number; moved: boolean } | null>(null);
 
   const onPointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
@@ -246,16 +227,12 @@ export default function Settings() {
     }
   };
 
-  /* ====================================================================== */
-
   return (
     <>
-      {/* BOTTONE INGRANAGGIO TRASCINABILE (SOLO VERTICALE) */}
       <button
         ref={gearBtnRef}
         className="fixed right-6 z-50 rounded-full shadow p-2 border text-2xl flex items-center justify-center tap-target cursor-grab active:cursor-grabbing focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
         style={{
-          // Evita mismatch: nessun 'top' finché non è montato
           top: mounted ? `${gearTop}px` : undefined,
           background: "var(--surface)",
           color: "var(--icon)",
@@ -273,7 +250,6 @@ export default function Settings() {
         <FaCog className="icon" />
       </button>
 
-      {/* PANNELLO IMPOSTAZIONI */}
       {open && (
         <>
           <div
@@ -302,7 +278,6 @@ export default function Settings() {
               Impostazioni accessibilità
             </h3>
 
-            {/* --- Tema --- */}
             <div>
               <label className="font-semibold block mb-1">Tema:</label>
               <select value={theme} onChange={e => setTheme(e.target.value)} className="border rounded p-1 w-full">
@@ -311,7 +286,6 @@ export default function Settings() {
               </select>
             </div>
 
-            {/* --- Contrasto --- */}
             <div>
               <label className="font-semibold block mb-1">Contrasto alto:</label>
               <select value={contrast} onChange={e => setContrast(e.target.value)} className="border rounded p-1 w-full">
@@ -320,7 +294,6 @@ export default function Settings() {
               </select>
             </div>
 
-            {/* --- Dimensione testo --- */}
             <div>
               <label className="font-semibold block mb-1">Dimensione testo:</label>
               <select value={fontSize} onChange={e => setFontSize(e.target.value)} className="border rounded p-1 w-full">
@@ -330,7 +303,6 @@ export default function Settings() {
               </select>
             </div>
 
-            {/* --- Font --- */}
             <div>
               <label className="font-semibold block mb-1">Font:</label>
               <select value={fontFamily} onChange={e => setFontFamily(e.target.value)} className="border rounded p-1 w-full">
@@ -339,7 +311,6 @@ export default function Settings() {
               </select>
             </div>
 
-            {/* --- Spaziatura --- */}
             <div>
               <label className="font-semibold block mb-1">Spaziatura testo:</label>
               <select value={spacing} onChange={e => setSpacing(e.target.value)} className="border rounded p-1 w-full">
@@ -348,7 +319,6 @@ export default function Settings() {
               </select>
             </div>
 
-            {/* --- Tap size --- */}
             <div>
               <label className="font-semibold block mb-1">Area tappabile:</label>
               <select value={tap} onChange={e => setTap(e.target.value)} className="border rounded p-1 w-full">
@@ -357,7 +327,6 @@ export default function Settings() {
               </select>
             </div>
 
-            {/* --- AUDIO --- */}
             <div>
               <label className="font-semibold block mb-1">Lettura automatica:</label>
               <select value={autoRead} onChange={e => setAutoRead(e.target.value)} className="border rounded p-1 w-full">
@@ -388,7 +357,6 @@ export default function Settings() {
               </select>
             </div>
 
-            {/* --- Animazioni --- */}
             <div>
               <label className="font-semibold block mb-1">Animazioni:</label>
               <select value={animations} onChange={e => setAnimations(e.target.value)} className="border rounded p-1 w-full">
@@ -398,7 +366,6 @@ export default function Settings() {
               </select>
             </div>
 
-            {/* --- Avatar guida --- */}
             <div>
               <label className="font-semibold block mb-1">Avatar guida:</label>
               <select value={avatarGuide} onChange={e => setAvatarGuide(e.target.value)} className="border rounded p-1 w-full">
@@ -408,7 +375,6 @@ export default function Settings() {
               </select>
             </div>
 
-            {/* --- Durata attività --- */}
             <div>
               <label className="font-semibold block mb-1">Durata attività:</label>
               <select value={activityDur} onChange={e => setActivityDur(e.target.value)} className="border rounded p-1 w-full">
@@ -418,7 +384,6 @@ export default function Settings() {
               </select>
             </div>
 
-            {/* --- Feedback --- */}
             <div>
               <span className="font-semibold block mb-1">Feedback:</span>
               <div className="flex gap-3 items-center">
@@ -437,7 +402,6 @@ export default function Settings() {
               </div>
             </div>
 
-            {/* --- Navigazione semplificata --- */}
             <div>
               <label className="font-semibold block mb-1">Navigazione semplificata:</label>
               <select value={navSimple} onChange={e => setNavSimple(e.target.value)} className="border rounded p-1 w-full">
